@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { AppConfig } from "@/utils/AppConfig";
+import { AppConfig } from "@/util/AppConfig";
 
 type IMainProps = {
   meta: ReactNode;
