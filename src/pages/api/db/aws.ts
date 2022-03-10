@@ -1,10 +1,12 @@
 import * as AWS from "aws-sdk";
 
+import env from "@/util/env";
+
 // setup AWS configuration, note: using AWS SDK V2 not V3
 AWS.config.update({
-  accessKeyId: "AKIAQCL3A7PMSI4BS5IF",
-  secretAccessKey: "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",
-  region: "us-east-1",
+  accessKeyId: env.DB_AWS_ACCESS_KEY,
+  secretAccessKey: env.DB_AWS_SECRET_KEY,
+  region: env.DB_AWS_REGION,
 });
 
 export default AWS;
