@@ -37,9 +37,17 @@ Built-in feature from Next.js:
 Run the following command on your local environment:
 
 ```
-git clone https://github.com/davidseddy1/otrl-referral.git
+git clone https://github.com/OtRL-Reputation-Index/otrl-referral.git
 cd otrl-referral
 npm install
+```
+
+Rename `env.template` to `env.local` and fill out the following fields:
+```
+# AWS Authentication Credentials
+DEV_DB_AWS_ACCESS_KEY=
+DEV_DB_AUTH_AWS_SECRET_KEY=
+DEV_DB_AUTH_AWS_REGION=
 ```
 
 Then, you can run locally in development mode with live reload:
@@ -64,6 +72,7 @@ Open http://localhost:3000 with your favorite browser to see your project.
 │   ├── utils                # Utility folder
 │   └── pages                # Next JS pages
 │         └── api            # Next JS api route (AWS λ Functions) 
+│              └── db        # Functions used to interact with DynamoDB
 ├── tailwind.config.js       # Tailwind CSS configuration
 └── tsconfig.json            # TypeScript configuration
 ```
