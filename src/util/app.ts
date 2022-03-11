@@ -1,4 +1,4 @@
-export const AppConfig = {
+export const appConfig = {
   site_name: "OTRL Referral",
   title: "On The Road Lending",
   description:
