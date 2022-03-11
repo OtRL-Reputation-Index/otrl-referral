@@ -14,4 +14,10 @@ module.exports = withBundleAnalyzer({
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
+  env: {
+    NEXTJS_URL: process.env.NEXTJS_URL,
+    DB_AWS_ACCESS_KEY: process.env.DB_AWS_ACCESS_KEY,
+    DB_AWS_SECRET_KEY: process.env.DB_AWS_SECRET_KEY,
+    DB_AWS_REGION: process.env.DB_AWS_REGION,
+  },
 });

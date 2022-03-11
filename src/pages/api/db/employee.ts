@@ -78,7 +78,6 @@ const updateEmployee = async (
 
   try {
     const result = await docClient.update(params).promise();
-    console.log(result);
 
     if (result.Attributes) {
       return {
