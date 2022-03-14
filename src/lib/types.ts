@@ -48,11 +48,11 @@ export interface EmployeeUpdate {
 }
 
 export interface EmployeeGet {
-  employeePk: Number;
+  employeePk: string;
 }
 
 export interface EmployerGet {
-  employerPk: Number;
+  employerPk: string;
 }
 
 export interface MessageGet {
