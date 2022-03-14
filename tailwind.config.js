@@ -1,6 +1,10 @@
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    fontFamily: {
+      heading: ['Oswald'],
+      body: ['"Libre Franklin"'],
+    },
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',
@@ -36,6 +40,13 @@ module.exports = {
           700: '#2b6cb0',
           800: '#2c5282',
           900: '#2a4365',
+        },
+        otrl: {
+          red: '#e10600',
+          pink: '#ffcece',
+          'light-red': '#eb2f25',
+          blue: '#041e42',
+          'light-blue': '#0067b9',
         },
       },
     },

@@ -1,4 +1,4 @@
-import { Employee, EmployeeUpdate } from "@/lib/types";
+import { Employee, EmployeeUpdate, EmployeeGet } from "@/lib/types";
 import AWS from "@/pages/api/db/aws";
 
 /**
@@ -7,7 +7,7 @@ import AWS from "@/pages/api/db/aws";
  * @returns an employee
  */
 const fetchEmployee = async (
-  employee_pk: string
+  param: EmployeeGet
 ): Promise<Employee | undefined> => {
   const docClient = new AWS.DynamoDB.DocumentClient();
   const table = "Employee";
@@ -21,7 +21,7 @@ const fetchEmployee = async (
       "#pk": "pk",
     },
     ExpressionAttributeValues: {
-      ":employee_pk": employee_pk,
+      ":employee_pk": param.employeePk,
     },
   };
 
@@ -38,6 +38,7 @@ const fetchEmployee = async (
         pk: item.pk,
         numReferrals: item.referrals_num,
         rui: item.rui,
+        email: item.email,
       };
       employees.push(employee);
     });
@@ -89,6 +90,7 @@ const updateEmployee = async (
         pk: result.Attributes?.pk,
         numReferrals: result.Attributes?.referrals_num,
         rui: result.Attributes?.rui,
+        email: result.Attributes?.email,
       };
     }
   } catch (err) {
