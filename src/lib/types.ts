@@ -40,6 +40,13 @@ export type Referral = {
   submittedAt: Date;
 };
 
+export interface EmployeeInfo {
+  pk: string;
+  firstName: string;
+  middleName: string | undefined;
+  lastName: string;
+}
+
 export interface EmployeeUpdate {
   id: Number;
   newRui: Number;
@@ -67,5 +74,4 @@ export interface SignatureVerify {
 
 export interface Submit {
   referral: Referral;
-  employeeUpdate: EmployeeUpdate;
 }
