@@ -35,12 +35,6 @@ const Survey = ({ employee, employer }: SurveyProps) => {
         sTaskExperience: 0,
         submittedAt: timeNow,
       },
-      employeeUpdate: {
-        id: 0,
-        newRui: 0,
-        newNumReferrals: 0,
-        lastUpdated: timeNow,
-      },
     };
 
     // TODO: Submit referral
