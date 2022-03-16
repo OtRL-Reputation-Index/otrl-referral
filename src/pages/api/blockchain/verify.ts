@@ -6,7 +6,7 @@ import { verify } from "bitcoinjs-message";
  * @returns a message
  */
 const generateMessage = async (): Promise<string> => {
-  const msg = "3832990DD1A5B5AB9C5E119D81E178A91D10FE54C2";
+  const msg = "15gjzQezEfrmJDGxvMMWhnZaEQAZTaFmYY:012020102";
 
   return msg;
 };

@@ -58,8 +58,8 @@ const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
     e.preventDefault();
 
     const verification: boolean = await verifyMessage(
-      signMsg,
       employerPk.current?.value ? employerPk.current?.value : "",
+      signMsg,
       digitalSignature.current?.value ? digitalSignature.current?.value : ""
     );
     // Verify digital signature
