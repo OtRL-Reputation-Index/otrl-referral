@@ -21,7 +21,7 @@ const fetchEmployer = async (
       "#pk": "pk",
     },
     ExpressionAttributeValues: {
-      ":employee_pk": param.employerPk,
+      ":employer_pk": param.employerPk,
     },
   };
 
@@ -32,7 +32,7 @@ const fetchEmployer = async (
       const employer: Employer = {
         id: item.id,
         pk: item.pk,
-        companyName: item.companyName,
+        companyName: item.company_name,
         firstName: item.first_name,
         middleName: item.middle_name,
         lastName: item.last_name,

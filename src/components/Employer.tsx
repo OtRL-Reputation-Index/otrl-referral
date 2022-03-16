@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 
 import { SubHeader } from "@/layout/SubHeader";
-import { EmployeeGet } from "@/lib/types";
+import { EmployerGet } from "@/lib/types";
 import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
-import { fetchEmployee } from "@/pages/api/db/employee";
+import { fetchEmployer } from "@/pages/api/db/employer";
 
 type EmployerProps = {
   setAuth: any; // react useState handler for auth
@@ -32,19 +32,17 @@ const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
       return;
     }
 
-    const param: EmployeeGet = {
-      employeePk: employerPk.current?.value,
+    const param: EmployerGet = {
+      employerPk: employerPk.current?.value,
     };
 
-    const employerFetched = await fetchEmployee(param);
+    const employerFetched = await fetchEmployer(param);
 
     if (employerFetched) {
       setUnverifiedEmployer(employerFetched);
       setUnverified(true);
       setSignMsg(await generateMessage());
-      setFoundMsg(
-        `Employer: ${employerFetched.firstName} ${employerFetched.lastName}`
-      );
+      setFoundMsg(`Employer: ${employerFetched.companyName}`);
       return;
     }
     setUnverifiedEmployer({});

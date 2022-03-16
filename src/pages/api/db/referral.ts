@@ -19,7 +19,7 @@ const postReferral = async (referral: Referral): Promise<boolean> => {
       s_respect: referral.sRespect,
       s_task_communicate: referral.sTaskCommunicate,
       s_task_complete: referral.sTaskComplete,
-      s_task_experience: referral.sTaskExperience,
+      s_experience: referral.sExperience,
       s_task_time: referral.sTaskTime,
       s_work_time: referral.sWorkTime,
       signature: referral.signature,

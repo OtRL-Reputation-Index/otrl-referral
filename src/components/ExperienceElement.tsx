@@ -4,6 +4,7 @@ import { Menu } from "@headlessui/react";
 
 type ExperienceElementProps = {
   survey: any;
+  setTrySubmit: any;
   // survey: {
   //   sWorkTime: Number;
   //   sPressure: Number;
@@ -19,7 +20,10 @@ type ExperienceElementProps = {
   // };
 };
 
-const ExperienceElement = ({ survey }: ExperienceElementProps) => {
+const ExperienceElement = ({
+  survey,
+  setTrySubmit,
+}: ExperienceElementProps) => {
   const [option, setOption] = useState("Select an Option");
 
   return (
@@ -53,6 +57,7 @@ const ExperienceElement = ({ survey }: ExperienceElementProps) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
                 survey.sExperience = 1;
+                setTrySubmit(false);
                 setOption("Less than a year");
               }}
               className="group flex gap-2 items-center py-1 px-4 text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -67,6 +72,7 @@ const ExperienceElement = ({ survey }: ExperienceElementProps) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
                 survey.sExperience = 2;
+                setTrySubmit(false);
                 setOption("1 to 2 years");
               }}
               className="group flex gap-2 items-center py-1 px-4 text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -80,6 +86,7 @@ const ExperienceElement = ({ survey }: ExperienceElementProps) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
                 survey.sExperience = 3;
+                setTrySubmit(false);
                 setOption("2 to 3 years");
               }}
               className="group flex gap-2 items-center py-1 px-4 text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -93,6 +100,7 @@ const ExperienceElement = ({ survey }: ExperienceElementProps) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
                 survey.sExperience = 4;
+                setTrySubmit(false);
                 setOption("3 to 4 years");
               }}
               className="group flex gap-2 items-center py-1 px-4 text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -106,6 +114,7 @@ const ExperienceElement = ({ survey }: ExperienceElementProps) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
                 survey.sExperience = 5;
+                setTrySubmit(false);
                 setOption("5+ years");
               }}
               className="group flex gap-2 items-center py-1 px-4 text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
