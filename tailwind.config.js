@@ -1,6 +1,13 @@
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+  ],
   theme: {
+    fontFamily: {
+      heading: ['Oswald'],
+      body: ['"Libre Franklin"'],
+    },
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',
@@ -37,8 +44,16 @@ module.exports = {
           800: '#2c5282',
           900: '#2a4365',
         },
+        otrl: {
+          red: '#e10600',
+          pink: '#ffcece',
+          'light-red': '#eb2f25',
+          blue: '#041e42',
+          'light-blue': '#0067b9',
+        },
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line global-require
+  plugins: [require('tw-elements/dist/plugin')],
 };

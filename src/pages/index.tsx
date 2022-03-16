@@ -1,10 +1,16 @@
-import { useRouter } from "next/router";
+import { useState } from "react";
 
+import { EmployeeInformation } from "@/components/Employee";
+import { EmployerInformation } from "@/components/Employer";
+import { Survey } from "@/components/Survey";
+import { Header } from "@/layout/Header";
 import { Meta } from "@/layout/Meta";
 import { Main } from "@/templates/Main";
 
 const Index = () => {
-  const router = useRouter();
+  const [employerAuth, setEmployerAuth] = useState(false);
+  const [employer, setEmployer] = useState(null);
+  const [employee, setEmployee] = useState(null);
 
   return (
     <Main
@@ -15,15 +21,15 @@ const Index = () => {
         />
       }
     >
-      <div className="w-40">
-        <a href="https://ontheroadlending.org">
-          <img
-            src={`${router.basePath}/assets/images/otrl-logo.svg`}
-            alt="On the Road"
-          />
-        </a>
-      </div>
-      <h1 className="mt-24 text-2xl font-bold">Referral</h1>
+      <Header />
+      <EmployerInformation
+        setAuth={setEmployerAuth}
+        setEmployer={setEmployer}
+      />
+      {employerAuth ? <EmployeeInformation setEmployee={setEmployee} /> : null}
+      {employerAuth && employee ? (
+        <Survey employee={employee} employer={employer} />
+      ) : null}
     </Main>
   );
 };
