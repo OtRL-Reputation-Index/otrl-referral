@@ -37,8 +37,7 @@ const SurveyGridElement = ({
           name={questionVariableName}
           required
           type="radio"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             // eslint-disable-next-line no-param-reassign
             survey[questionVariableName] = 1;
           }}
@@ -53,8 +52,7 @@ const SurveyGridElement = ({
           name={questionVariableName}
           required
           type="radio"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             // eslint-disable-next-line no-param-reassign
             survey[questionVariableName] = 2;
           }}
@@ -70,8 +68,7 @@ const SurveyGridElement = ({
           required
           defaultChecked
           type="radio"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             // eslint-disable-next-line no-param-reassign
             survey[questionVariableName] = 3;
           }}
@@ -86,8 +83,7 @@ const SurveyGridElement = ({
           name={questionVariableName}
           required
           type="radio"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             // eslint-disable-next-line no-param-reassign
             survey[questionVariableName] = 4;
           }}
@@ -102,8 +98,7 @@ const SurveyGridElement = ({
           name={questionVariableName}
           required
           type="radio"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             // eslint-disable-next-line no-param-reassign
             survey[questionVariableName] = 5;
           }}

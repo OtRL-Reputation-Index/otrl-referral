@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { SubHeader } from "@/layout/SubHeader";
 import { Employee, Employer, Submit } from "@/lib/types";
@@ -12,20 +12,7 @@ type SurveyProps = {
 };
 
 const Survey = ({ employee, employer }: SurveyProps) => {
-  // TODO: Add useRefs for all fields of the survey
-  // const [survey, setSurvey] = useState({
-  //   sWorkTime: 3,
-  //   sPressure: 3,
-  //   sEthic: 3,
-  //   sComplaints: 3,
-  //   sRespect: 3,
-  //   sReliable: 3,
-  //   sTaskTime: 3,
-  //   sTaskComplete: 3,
-  //   sTaskCommunicate: 3,
-  //   sFullTime: 3,
-  //   sExperience: 3,
-  // });
+  const [trySubmit, setTrySubmit] = useState(false);
 
   const survey = {
     sWorkTime: 3,
@@ -38,7 +25,7 @@ const Survey = ({ employee, employer }: SurveyProps) => {
     sTaskComplete: 3,
     sTaskCommunicate: 3,
     sFullTime: 3,
-    sExperience: 3,
+    sExperience: 0,
   };
 
   const surveyQuestions = {
@@ -58,6 +45,7 @@ const Survey = ({ employee, employer }: SurveyProps) => {
   Object.keys(surveyQuestions).forEach((questionVariableName: string) => {
     gridQuestions.push(
       <SurveyGridElement
+        key={i}
         questionTitle={
           surveyQuestions[questionVariableName as keyof typeof surveyQuestions]
         }
@@ -71,13 +59,18 @@ const Survey = ({ employee, employer }: SurveyProps) => {
   const submitReferral = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
+    if (!survey.sExperience) {
+      setTrySubmit(true);
+      return;
+    }
+
     const timeNow = new Date();
     // TODO: Fill out the object with correct parameters
     const param: Submit = {
       referral: {
         id: 0,
-        employeePk: "",
-        employerPk: "",
+        employeeId: "",
+        employerId: "",
         message: "",
         signature: "",
         sWorkTime: 0,
@@ -131,8 +124,7 @@ const Survey = ({ employee, employer }: SurveyProps) => {
                   name="full-time"
                   required
                   type="radio"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     // eslint-disable-next-line no-param-reassign
                     survey.sFullTime = 2;
                   }}
@@ -147,10 +139,10 @@ const Survey = ({ employee, employer }: SurveyProps) => {
                   name="full-time"
                   required
                   type="radio"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     // eslint-disable-next-line no-param-reassign
                     survey.sFullTime = 1;
+                    setTrySubmit(false);
                   }}
                   className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
                 />
@@ -158,7 +150,12 @@ const Survey = ({ employee, employer }: SurveyProps) => {
                 <div className="text-sm font ">No</div>
               </div>
             </div>
-            <ExperienceElement survey={survey} />
+            <ExperienceElement survey={survey} setTrySubmit={setTrySubmit} />
+            {trySubmit ? (
+              <div className="-mb-4 h-4 text-xs text-otrl-red">
+                Please select an option!
+              </div>
+            ) : null}
             <div className="flex justify-end mt-16 mr-8">
               <button
                 type="submit"

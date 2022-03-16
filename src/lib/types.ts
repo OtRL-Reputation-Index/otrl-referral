@@ -23,8 +23,8 @@ export type Employer = {
 
 export type Referral = {
   id: Number;
-  employeePk: string;
-  employerPk: string;
+  employeeId: string;
+  employerId: string;
   message: string;
   signature: string;
   sWorkTime: Number;
