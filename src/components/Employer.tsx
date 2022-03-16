@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 
 import { SubHeader } from "@/layout/SubHeader";
 import { EmployeeGet } from "@/lib/types";
+import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
 import { fetchEmployee } from "@/pages/api/db/employee";
 
 type EmployerProps = {
@@ -12,12 +13,12 @@ type EmployerProps = {
 const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
   const employerPk = useRef<HTMLInputElement>(null);
   const digitalSignature = useRef<HTMLInputElement>(null);
+  const [signMsg, setSignMsg] = useState("");
   const [foundMsg, setFoundMsg] = useState("");
   const [resMsg, setResMsg] = useState("");
   const [unverified, setUnverified] = useState(false);
   const [verified, setVerified] = useState(false);
   const [unverifiedEmployer, setUnverifiedEmployer] = useState({});
-  const msg = "3832990DD1A5B5AB9C5E119D81E178A91D10FE54C2";
 
   const getEmployer = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -40,12 +41,14 @@ const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
     if (employerFetched) {
       setUnverifiedEmployer(employerFetched);
       setUnverified(true);
+      setSignMsg(await generateMessage());
       setFoundMsg(
         `Employer: ${employerFetched.firstName} ${employerFetched.lastName}`
       );
       return;
     }
     setUnverifiedEmployer({});
+    setSignMsg("");
     setFoundMsg("❌ No record found!");
     setUnverified(false);
     setAuth(false);
@@ -54,8 +57,13 @@ const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
   const verifySignature = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
+    const verification: boolean = await verifyMessage(
+      signMsg,
+      employerPk.current?.value ? employerPk.current?.value : "",
+      digitalSignature.current?.value ? digitalSignature.current?.value : ""
+    );
     // Verify digital signature
-    if (digitalSignature.current?.value === "secret") {
+    if (verification) {
       setEmployer(unverifiedEmployer);
       setVerified(true);
       setResMsg("✔ Digital Signature Verified!");
@@ -100,7 +108,7 @@ const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
           </div>
         </div>
         <div className="mt-8 break-words">
-          {unverified ? `Message: ${msg}` : null}
+          {unverified ? `Message: ${signMsg}` : null}
         </div>
         {unverified ? (
           <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8">
