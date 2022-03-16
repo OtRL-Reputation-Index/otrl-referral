@@ -38,6 +38,7 @@ export type Referral = {
   sTaskCommunicate: Number;
   sFullTime: Number;
   sExperience: Number;
+
   submittedAt: Date;
 };
 
