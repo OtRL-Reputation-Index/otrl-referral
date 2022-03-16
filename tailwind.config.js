@@ -1,5 +1,8 @@
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+  ],
   theme: {
     fontFamily: {
       heading: ['Oswald'],
@@ -51,5 +54,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line global-require
+  plugins: [require('tw-elements/dist/plugin')],
 };
