@@ -68,8 +68,6 @@ const Survey = ({ employee, employer }: SurveyProps) => {
     );
     i += 1;
   });
-  console.log("Here");
-  console.log(survey);
   const submitReferral = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
