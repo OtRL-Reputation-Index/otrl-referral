@@ -8,12 +8,19 @@ import { fetchEmployer } from "@/pages/api/db/employer";
 type EmployerProps = {
   setAuth: any; // react useState handler for auth
   setEmployer: any;
+  signMsg: any;
+  setSignMsg: any;
+  digitalSignature: any;
 };
 
-const EmployerInformation = ({ setAuth, setEmployer }: EmployerProps) => {
+const EmployerInformation = ({
+  setAuth,
+  setEmployer,
+  signMsg,
+  setSignMsg,
+  digitalSignature,
+}: EmployerProps) => {
   const employerPk = useRef<HTMLInputElement>(null);
-  const digitalSignature = useRef<HTMLInputElement>(null);
-  const [signMsg, setSignMsg] = useState("");
   const [foundMsg, setFoundMsg] = useState("");
   const [resMsg, setResMsg] = useState("");
   const [unverified, setUnverified] = useState(false);

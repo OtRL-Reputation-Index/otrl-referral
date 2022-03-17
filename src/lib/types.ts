@@ -1,17 +1,17 @@
 export type Employee = {
-  id: Number;
+  id: string;
   pk: string;
   firstName: string;
   middleName: string | undefined;
   lastName: string;
   phoneNum: string;
   email: string;
-  rui: Number;
-  numReferrals: Number;
+  rui: number;
+  numReferrals: number;
 };
 
 export type Employer = {
-  id: Number;
+  id: string;
   pk: string;
   companyName: string;
   firstName: string;
@@ -22,26 +22,31 @@ export type Employer = {
 };
 
 export type Referral = {
-  id: Number;
+  id: string;
   employeeId: string;
   employerId: string;
   message: string;
   signature: string;
-  sWorkTime: Number;
-  sPressure: Number;
-  sEthic: Number;
-  sComplaints: Number;
-  sRespect: Number;
-  sReliable: Number;
-  sTaskTime: Number;
-  sTaskComplete: Number;
-  sTaskCommunicate: Number;
-  sFullTime: Number;
-  sExperience: Number;
   submittedAt: Date;
+  survey: Survey;
+};
+
+export type Survey = {
+  sWorkTime: number;
+  sPressure: number;
+  sEthic: number;
+  sComplaints: number;
+  sRespect: number;
+  sReliable: number;
+  sTaskTime: number;
+  sTaskComplete: number;
+  sTaskCommunicate: number;
+  sFullTime: number;
+  sExperience: number;
 };
 
 export interface EmployeeInfo {
+  id: string;
   pk: string;
   firstName: string;
   middleName: string | undefined;
@@ -49,14 +54,17 @@ export interface EmployeeInfo {
 }
 
 export interface EmployeeUpdate {
-  id: Number;
-  newRui: Number;
-  newNumReferrals: Number;
+  id: string;
+  newRui: number;
+  newNumReferrals: number;
   lastUpdated: Date;
 }
 
-export interface EmployeeGet {
+export interface EmployeeInfoGet {
   employeePk: string;
+}
+export interface EmployeeGet {
+  employeeId: string;
 }
 
 export interface EmployerGet {
