@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 
 import { SubHeader } from "@/layout/SubHeader";
-import { EmployeeGet } from "@/lib/types";
-import { fetchEmployee } from "@/pages/api/db/employee";
+import { EmployeeInfoGet } from "@/lib/types";
+import { getEmployeeInfo } from "@/pages/api/db/employee";
 
 type EmployeeProps = {
-  setEmployee: any;
+  setEmployeeInfo: any;
 };
 
-const EmployeeInformation = ({ setEmployee }: EmployeeProps) => {
+const EmployeeInformation = ({ setEmployeeInfo }: EmployeeProps) => {
   const employeePk = useRef<HTMLInputElement>(null);
   const [foundMsg, setFoundMsg] = useState("");
   const [verified, setVerified] = useState(false);
@@ -18,27 +18,27 @@ const EmployeeInformation = ({ setEmployee }: EmployeeProps) => {
 
     // No input
     if (!employeePk.current?.value) {
-      setEmployee(null);
+      setEmployeeInfo(null);
       setFoundMsg("❌ No record found!");
       setVerified(false);
       return;
     }
 
-    const param: EmployeeGet = {
+    const param: EmployeeInfoGet = {
       employeePk: employeePk.current?.value,
     };
 
-    const employeeFetched = await fetchEmployee(param);
+    const employeeFetched = await getEmployeeInfo(param);
 
     if (employeeFetched) {
-      setEmployee(employeeFetched);
+      setEmployeeInfo(employeeFetched);
       setVerified(true);
       setFoundMsg(
         `Name: ${employeeFetched.firstName} ${employeeFetched.lastName}`
       );
       return;
     }
-    setEmployee(null);
+    setEmployeeInfo(null);
     setFoundMsg("❌ No record found!");
     setVerified(false);
   };

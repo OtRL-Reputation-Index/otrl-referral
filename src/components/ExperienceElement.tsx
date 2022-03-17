@@ -3,27 +3,10 @@ import React, { useState } from "react";
 import { Menu } from "@headlessui/react";
 
 type ExperienceElementProps = {
-  survey: any;
-  setTrySubmit: any;
-  // survey: {
-  //   sWorkTime: Number;
-  //   sPressure: Number;
-  //   sEthic: Number;
-  //   sComplaints: Number;
-  //   sRespect: Number;
-  //   sReliable: Number;
-  //   sTaskTime: Number;
-  //   sTaskComplete: Number;
-  //   sTaskCommunicate: Number;
-  //   sFullTime: Number;
-  //   sExperience: Number;
-  // };
+  setExp: any;
 };
 
-const ExperienceElement = ({
-  survey,
-  setTrySubmit,
-}: ExperienceElementProps) => {
+const ExperienceElement = ({ setExp }: ExperienceElementProps) => {
   const [option, setOption] = useState("Select an Option");
 
   return (
@@ -56,8 +39,7 @@ const ExperienceElement = ({
               onClick={(e) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
-                survey.sExperience = 1;
-                setTrySubmit(false);
+                setExp(1);
                 setOption("Less than a year");
               }}
               className="group flex gap-2 items-center text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -73,8 +55,7 @@ const ExperienceElement = ({
               onClick={(e) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
-                survey.sExperience = 2;
-                setTrySubmit(false);
+                setExp(2);
                 setOption("1 to 2 years");
               }}
               className="group flex gap-2 items-center text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -89,8 +70,7 @@ const ExperienceElement = ({
               onClick={(e) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
-                survey.sExperience = 3;
-                setTrySubmit(false);
+                setExp(3);
                 setOption("2 to 3 years");
               }}
               className="group flex gap-2 items-center text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -105,8 +85,7 @@ const ExperienceElement = ({
               onClick={(e) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
-                survey.sExperience = 4;
-                setTrySubmit(false);
+                setExp(4);
                 setOption("3 to 4 years");
               }}
               className="group flex gap-2 items-center text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
@@ -121,8 +100,7 @@ const ExperienceElement = ({
               onClick={(e) => {
                 e.preventDefault();
                 // eslint-disable-next-line no-param-reassign
-                survey.sExperience = 5;
-                setTrySubmit(false);
+                setExp(5);
                 setOption("5+ years");
               }}
               className="group flex gap-2 items-center text-sm text-black hover:text-black bg-white hover:bg-otrl-pink rounded-sm border-b-2 border-b-white hover:border-b-otrl-red transition duration-400"
