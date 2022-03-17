@@ -1,9 +1,15 @@
-import { Employee, EmployeeUpdate, EmployeeGet } from "@/lib/types";
+import {
+  Employee,
+  EmployeeUpdate,
+  EmployeeGet,
+  EmployeeInfoGet,
+  EmployeeInfo,
+} from "@/lib/types";
 import AWS from "@/pages/api/db/aws";
 
 /**
  * Fetch an employee from dynamoDB
- * @param employee_pk Employee's public key used to identify on the blockchain
+ * @param employee_id Employee id used to identify on the blockchain
  * @returns an employee
  */
 const fetchEmployee = async (
@@ -11,17 +17,15 @@ const fetchEmployee = async (
 ): Promise<Employee | undefined> => {
   const docClient = new AWS.DynamoDB.DocumentClient();
   const table = "Employee";
-  const indexName = "pk-index";
 
   const params = {
     TableName: table,
-    IndexName: indexName,
-    KeyConditionExpression: "#pk = :employee_pk",
+    KeyConditionExpression: "#id = :employee_id",
     ExpressionAttributeNames: {
-      "#pk": "pk",
+      "#id": "id",
     },
     ExpressionAttributeValues: {
-      ":employee_pk": param.employeePk,
+      ":employee_id": param.employeeId,
     },
   };
 
@@ -51,6 +55,51 @@ const fetchEmployee = async (
 };
 
 /**
+ * Fetch an employee from dynamoDB
+ * @param employee_pk Employee's public key used to identify on the blockchain
+ * @returns employee info
+ */
+const getEmployeeInfo = async (
+  param: EmployeeInfoGet
+): Promise<EmployeeInfo | undefined> => {
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const table = "Employee";
+  const indexName = "pk-index";
+
+  const params = {
+    TableName: table,
+    IndexName: indexName,
+    KeyConditionExpression: "#pk = :employee_pk",
+    ExpressionAttributeNames: {
+      "#pk": "pk",
+    },
+    ExpressionAttributeValues: {
+      ":employee_pk": param.employeePk,
+    },
+  };
+
+  try {
+    const result = await docClient.query(params).promise();
+    const employees: EmployeeInfo[] = [];
+    result.Items?.forEach((item) => {
+      const employee: EmployeeInfo = {
+        id: item.id,
+        firstName: item.first_name,
+        middleName: item.middle_name,
+        lastName: item.last_name,
+        pk: item.pk,
+      };
+      employees.push(employee);
+    });
+    return employees ? employees[0] : undefined;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return undefined;
+};
+
+/**
  * Update an employee's rui score with the id of
  * @param update update operation data
  * @returns updated event document
@@ -65,14 +114,17 @@ const updateEmployee = async (
     Key: {
       id: update.id, // partition key
     },
-    UpdateExpression: "SET #rui= :rui_value,#n_ref= :n_ref_value",
+    UpdateExpression:
+      "SET #rui= :rui_value,#n_ref= :n_ref_value,#last_updated = :last_updated",
     ExpressionAttributeNames: {
       "#rui": "rui",
       "#n_ref": "referrals_num",
+      "#last_updated": "last_updated",
     },
     ExpressionAttributeValues: {
       ":rui_value": update.newRui,
       ":n_ref_value": update.newNumReferrals,
+      ":last_updated": update.lastUpdated.toISOString(),
     },
     ReturnValues: "ALL_NEW",
   };
@@ -99,4 +151,4 @@ const updateEmployee = async (
   return null;
 };
 
-export { fetchEmployee, updateEmployee };
+export { fetchEmployee, updateEmployee, getEmployeeInfo };
