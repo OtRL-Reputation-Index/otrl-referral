@@ -22,7 +22,11 @@ const verifyMessage = async (
   message: string,
   signature: string
 ): Promise<boolean> => {
-  return verify(message, employerPk, signature);
+  try {
+    return verify(message, employerPk, signature);
+  } catch (err) {
+    return false;
+  }
 };
 
 export { generateMessage, verifyMessage };
