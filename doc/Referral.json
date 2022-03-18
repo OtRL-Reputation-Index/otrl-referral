@@ -1,0 +1,27 @@
+{
+    "TableName": "Referral",
+    "KeySchema": [ 
+        {
+            "AttributeName": "employee_id",
+            "KeyType": "HASH" 
+        },
+        {
+            "AttributeName":"employer_id",
+            "KeyType":"RANGE"
+        }
+    ],
+    "AttributeDefinitions":[
+        {
+            "AttributeName":"employee_id",
+            "AttributeType":"S"
+        }, 
+        {
+            "AttributeName":"employer_id",
+            "AttributeType":"S"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits":5,
+        "WriteCapacityUnits":5
+    }
+}

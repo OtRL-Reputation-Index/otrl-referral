@@ -1,0 +1,43 @@
+{
+    "TableName": "Employer",
+    "KeySchema": [ 
+        {
+            "AttributeName": "id",
+            "KeyType": "HASH" 
+        }
+    ],
+    "AttributeDefinitions":[
+        {
+            "AttributeName":"id",
+            "AttributeType":"S"
+        },
+        {
+            "AttributeName":"pk",
+            "AttributeType":"S"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits":1,
+        "WriteCapacityUnits":1
+    },
+    "GlobalSecondaryIndexes":
+    [
+        {
+            "IndexName": "pk-index",
+            "KeySchema": [
+                {
+                    "AttributeName":"pk",
+                    "KeyType":"HASH"
+                }
+            ],
+            "Projection": 
+            {
+                "ProjectionType" : "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits":1,
+                "WriteCapacityUnits":1
+            }
+        }
+    ]
+}

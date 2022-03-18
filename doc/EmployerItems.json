@@ -1,0 +1,70 @@
+{
+    "Employer": 
+    [
+        {
+        "PutRequest": 
+            {
+                "Item":
+                {
+                    "id":{"S": "1"},
+                    "pk":{"S":"1Ftzg6SG83pmLvmpKejYRjQB8xfUpuwYwr"},
+                    "first_name":{"S":"Mark"},
+                    "middle_name":{"S": "Hus"},
+                    "last_name":{"S":"John"},
+                    "phone_num":{"S":"4694443210"},
+                    "email":{"S":"mark@gmail.com"},
+                    "company_name":{"S": "IBM"}
+                }
+            }
+        },
+        {
+            "PutRequest": 
+            {
+                "Item":
+                {
+                    "id":{"S": "2"},
+                    "pk":{"S":"1CAcNzPDzftWPoh3yLCpQCnJwVKszoHWAy"},
+                    "first_name":{"S":"Zelda"},
+                    "middle_name":{"S": "Hilary"},
+                    "last_name":{"S":"Grazie"},
+                    "phone_num":{"S":"9728338734"},
+                    "email":{"S":"link17path@gmail.com"},
+                    "company_name":{"S": "Zink inc."}
+                }
+            }
+        },
+        {
+            "PutRequest": 
+                {
+                    "Item":
+                    {
+                        "id":{"S": "3"},
+                        "pk":{"S":"12EVDUewSgkUgsNZtJQvxQs88c5ap22jbY"},
+                        "first_name":{"S":"George"},
+                        "middle_name":{"S": "static"},
+                        "last_name":{"S":"Mcgee"},
+                        "phone_num":{"S":"4658859613"},
+                        "email":{"S":"Georgestatic_456@yahoo.com"},
+                        "company_name":{"S": "Bob Inc."}
+                    }
+                }
+            },
+        {
+        "PutRequest": 
+            {
+                "Item":
+                {
+                    "id":{"S": "4"},
+                    "pk":{"S":"12zjGiSv8C48WakaNNZmHuXkJuTdTGY7df"},
+                    "first_name":{"S":"Matthew"},
+                    "middle_name":{"S": "Cedric"},
+                    "last_name":{"S":"Thomas"},
+                    "phone_num":{"S":"2997459154"},
+                    "email":{"S":"Matt_Thom86@outlook.com"},
+                    "company_name":{"S": "Rest & Repair"}
+                }
+            }
+        }
+        
+    ]
+}
