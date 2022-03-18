@@ -22,7 +22,6 @@ export type Employer = {
 };
 
 export type Referral = {
-  id: string;
   employeeId: string;
   employerId: string;
   message: string;

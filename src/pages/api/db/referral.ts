@@ -8,9 +8,8 @@ const postReferral = async (referral: Referral): Promise<boolean> => {
   const params = {
     TableName: table,
     Item: {
-      id: referral.id, // partition key
-      employee_id: referral.employeeId,
-      employer_id: referral.employerId,
+      employee_id: referral.employeeId, // partition key
+      employer_id: referral.employerId, // sort key
       message: referral.message,
       s_complaints: referral.survey.sComplaints,
       s_ethic: referral.survey.sEthic,
@@ -22,6 +21,7 @@ const postReferral = async (referral: Referral): Promise<boolean> => {
       s_experience: referral.survey.sExperience,
       s_task_time: referral.survey.sTaskTime,
       s_work_time: referral.survey.sWorkTime,
+      s_fulltime: referral.survey.sFullTime,
       signature: referral.signature,
       submission_time: referral.submittedAt.toISOString(),
     },
