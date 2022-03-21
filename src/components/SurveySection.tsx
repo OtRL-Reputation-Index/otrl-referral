@@ -76,6 +76,8 @@ const SurveySection = ({
 
     const timeNow = new Date();
     const param: Submit = {
+      employeePk: employeeInfo?.pk ? employeeInfo?.pk : "",
+      employerPk: employer?.pk ? employer?.pk : "",
       referral: {
         employeeId: employeeInfo?.id ? employeeInfo?.id : "",
         employerId: employer?.id ? employer?.id : "",

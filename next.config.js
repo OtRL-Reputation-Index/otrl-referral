@@ -19,5 +19,6 @@ module.exports = withBundleAnalyzer({
     DB_AWS_ACCESS_KEY: process.env.DB_AWS_ACCESS_KEY,
     DB_AWS_SECRET_KEY: process.env.DB_AWS_SECRET_KEY,
     DB_AWS_REGION: process.env.DB_AWS_REGION,
+    BLOCKCHAIN_URL: process.env.BLOCKCHAIN_URL,
   },
 });

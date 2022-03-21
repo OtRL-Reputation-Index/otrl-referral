@@ -10,6 +10,7 @@ type EmployerProps = {
   setEmployer: any;
   signMsg: any;
   setSignMsg: any;
+  setSubmit: any;
   digitalSignature: any;
 };
 
@@ -18,6 +19,7 @@ const EmployerInformation = ({
   setEmployer,
   signMsg,
   setSignMsg,
+  setSubmit,
   digitalSignature,
 }: EmployerProps) => {
   const employerPk = useRef<HTMLInputElement>(null);
@@ -48,7 +50,11 @@ const EmployerInformation = ({
     if (employerFetched) {
       setUnverifiedEmployer(employerFetched);
       setUnverified(true);
-      setSignMsg(await generateMessage());
+      const msg = await generateMessage(param.employerPk);
+      if (msg === "Error") {
+        setSubmit(1);
+      }
+      setSignMsg(msg);
       setFoundMsg(`Employer: ${employerFetched.companyName}`);
       return;
     }

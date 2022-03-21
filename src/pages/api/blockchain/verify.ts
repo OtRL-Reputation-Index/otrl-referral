@@ -5,9 +5,35 @@ import { verify } from "bitcoinjs-message";
  * @param employer_pk Employee's public key is used to generate a unique message
  * @returns a message
  */
-const generateMessage = async (): Promise<string> => {
-  const msg = "3832990DD1A5B5AB9C5E119D81E178A91D10FE54C2:012020012";
-  return msg;
+const generateMessage = async (employerPk: string): Promise<string> => {
+  try {
+    const response = await fetch(
+      `${process.env.BLOCKCHAIN_URL}/requestValidation`,
+      {
+        body: JSON.stringify({
+          employer_pk: employerPk,
+        }),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      }
+    );
+
+    if (response.status >= 400) {
+      return "Error";
+    }
+
+    const msg = await response.json();
+    if (msg) {
+      return msg;
+    }
+  } catch (error) {
+    return "Error";
+  }
+
+  return "Error";
 };
 
 /**

@@ -25,6 +25,7 @@ const Index = () => {
           setEmployer={setEmployer}
           signMsg={signMsg}
           setSignMsg={setSignMsg}
+          setSubmit={setSubmit}
           digitalSignature={digitalSignature}
         />
         {employerAuth ? (

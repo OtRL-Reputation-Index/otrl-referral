@@ -1,10 +1,15 @@
-import { Employee, EmployeeUpdate, Submit } from "@/lib/types";
+import { BlockChainPost, Employee, EmployeeUpdate, Submit } from "@/lib/types";
 import { weights } from "@/pages/api/weights";
 
+import { postBlockchain } from "./blockchain/post";
 import { fetchEmployee, updateEmployee } from "./db/employee";
 import { postReferral } from "./db/referral";
 
-const submitReferral = async ({ referral }: Submit): Promise<boolean> => {
+const submitReferral = async ({
+  referral,
+  employeePk,
+  employerPk,
+}: Submit): Promise<boolean> => {
   let ruiScore = 0;
   let newRUIscore = 0;
 
@@ -39,6 +44,16 @@ const submitReferral = async ({ referral }: Submit): Promise<boolean> => {
   };
 
   if (!(await updateEmployee(params))) {
+    return false;
+  }
+  const blockChainParams: BlockChainPost = {
+    employeePk,
+    employerPk,
+    ruiScore,
+    digitalSignature: referral.signature,
+    message: referral.message,
+  };
+  if (!(await postBlockchain(blockChainParams))) {
     return false;
   }
 

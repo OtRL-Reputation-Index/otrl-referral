@@ -80,6 +80,15 @@ export interface SignatureVerify {
   signature: string;
 }
 
+export interface BlockChainPost {
+  employerPk: string;
+  employeePk: string;
+  message: string;
+  digitalSignature: string;
+  ruiScore: number;
+}
 export interface Submit {
+  employerPk: string;
+  employeePk: string;
   referral: Referral;
 }
