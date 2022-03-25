@@ -74,6 +74,15 @@ export interface MessageGet {
   message: string;
 }
 
+export interface ReferralGet {
+  employer_id: string;
+  employee_id: string;
+}
+
+export interface PrevReferral {
+  score: number;
+}
+
 export interface SignatureVerify {
   pk: string;
   message: string;

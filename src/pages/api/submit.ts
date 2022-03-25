@@ -3,7 +3,7 @@ import { weights } from "@/pages/api/weights";
 
 import { postBlockchain } from "./blockchain/post";
 import { fetchEmployee, updateEmployee } from "./db/employee";
-import { postReferral } from "./db/referral";
+import { fetchPrevReferral, postReferral } from "./db/referral";
 
 const submitReferral = async ({
   referral,
@@ -29,9 +29,21 @@ const submitReferral = async ({
 
   ruiScore /= Object.keys(referral.survey).length;
 
-  newRUIscore =
-    (employee.rui * employee.numReferrals + ruiScore) /
-    (employee.numReferrals + 1);
+  // Check if a referral already exists
+  const prevReferral = await fetchPrevReferral({
+    employee_id: referral.employeeId,
+    employer_id: referral.employerId,
+  });
+
+  if (prevReferral) {
+    newRUIscore =
+      (employee.rui * employee.numReferrals - prevReferral.score + ruiScore) /
+      employee.numReferrals;
+  } else {
+    newRUIscore =
+      (employee.rui * employee.numReferrals + ruiScore) /
+      (employee.numReferrals + 1);
+  }
 
   if (!(await postReferral(referral))) {
     return false;
