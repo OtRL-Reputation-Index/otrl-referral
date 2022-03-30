@@ -1,0 +1,68 @@
+{
+  "Employee": [
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "1" },
+          "pk": { "S": "15gjzQezEfrmJDGxvMMWhnZaEQAZTaFmYY" },
+          "first_name": { "S": "Henry" },
+          "middle_name": { "S": "Tom" },
+          "last_name": { "S": "Cejudo" },
+          "phone_num": { "S": "5465421650" },
+          "email": { "S": "sakdbojn@gmail.com" },
+          "referrals_num": { "N": "0" },
+          "rui": { "N": "0" },
+          "last_updated": { "S": " " }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "2" },
+          "pk": { "S": "1EaBZWgK4TkohHa9AXQspRj3NCen59PvPU" },
+          "first_name": { "S": "Aubrey" },
+          "middle_name": { "S": "Jane" },
+          "last_name": { "S": "Rose" },
+          "phone_num": { "S": "4693240765" },
+          "email": { "S": "aubrey29@gmail.com" },
+          "referrals_num": { "N": "0" },
+          "rui": { "N": "0" },
+          "last_updated": { "S": " " }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "3" },
+          "pk": { "S": "1MD5LokZhKMt5cpF3cktsLMnXZjdwPo9Yo" },
+          "first_name": { "S": "Tina" },
+          "middle_name": { "S": "Betty" },
+          "last_name": { "S": "Turner" },
+          "phone_num": { "S": "3579761635" },
+          "email": { "S": "fairy_parents@outlook.com" },
+          "referrals_num": { "N": "0" },
+          "rui": { "N": "0" },
+          "last_updated": { "S": " " }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "4" },
+          "pk": { "S": "1NrKY3Kj9x7u1EeFNKQEZJmDSaQ8H1fa6M" },
+          "first_name": { "S": "Bob" },
+          "middle_name": { "S": "Penny" },
+          "last_name": { "S": "Gray" },
+          "phone_num": { "S": "9723649817" },
+          "email": { "S": "wise_clown50@outlook.com" },
+          "referrals_num": { "N": "0" },
+          "rui": { "N": "0" },
+          "last_updated": { "S": " " }
+        }
+      }
+    }
+  ]
+}
