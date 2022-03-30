@@ -30,82 +30,92 @@ const SurveyGridElement = ({
 
   return (
     <>
-      <div className={`col-span-3${bg} rounded-l-md`}>{questionTitle}</div>
-      <div className={`flex gap-4 items-center${bg} form-check`}>
-        <input
-          id={`${questionVariableName}-input`}
-          name={questionVariableName}
-          required
-          type="radio"
-          onClick={() => {
-            // eslint-disable-next-line no-param-reassign
-            survey[questionVariableName] = 1;
-          }}
-          className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
-        />
-
-        <div className="text-sm font">1</div>
+      <div
+        className={`${bg} col-span-8 sm:col-span-3 rounded-l-md rounded-tr-md sm:rounded-tr-none`}
+      >
+        {questionTitle}
       </div>
-      <div className={`flex gap-6 items-center${bg}`}>
-        <input
-          id={`${questionVariableName}-input`}
-          name={questionVariableName}
-          required
-          type="radio"
-          onClick={() => {
-            // eslint-disable-next-line no-param-reassign
-            survey[questionVariableName] = 2;
-          }}
-          className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
-        />
+      <div
+        className={`${bg} flex col-span-8 rounded-md sm:col-span-5 justify-between px-0 py-0 -mt-6 sm:-mt-0 pr-0 sm:pr-4 md:pr-8 lg:pr-16`}
+      >
+        <div
+          className={`flex gap-4 items-center${bg} form-check rounded-bl-md sm:rounded-bl-none `}
+        >
+          <input
+            id={`${questionVariableName}-input`}
+            name={questionVariableName}
+            required
+            type="radio"
+            onClick={() => {
+              // eslint-disable-next-line no-param-reassign
+              survey[questionVariableName] = 1;
+            }}
+            className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
+          />
 
-        <div className="text-sm font ">2</div>
-      </div>
-      <div className={`flex gap-6 items-center${bg}`}>
-        <input
-          id={`${questionVariableName}-input`}
-          name={questionVariableName}
-          required
-          defaultChecked
-          type="radio"
-          onClick={() => {
-            // eslint-disable-next-line no-param-reassign
-            survey[questionVariableName] = 3;
-          }}
-          className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
-        />
+          <div className="text-sm font">1</div>
+        </div>
+        <div className={`flex gap-4 items-center${bg} form-check `}>
+          <input
+            id={`${questionVariableName}-input`}
+            name={questionVariableName}
+            required
+            type="radio"
+            onClick={() => {
+              // eslint-disable-next-line no-param-reassign
+              survey[questionVariableName] = 2;
+            }}
+            className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
+          />
 
-        <div className="text-sm font ">3</div>
-      </div>
-      <div className={`flex gap-6 items-center${bg}`}>
-        <input
-          id={`${questionVariableName}-input`}
-          name={questionVariableName}
-          required
-          type="radio"
-          onClick={() => {
-            // eslint-disable-next-line no-param-reassign
-            survey[questionVariableName] = 4;
-          }}
-          className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
-        />
+          <div className="text-sm font ">2</div>
+        </div>
+        <div className={`flex gap-4 items-center${bg} form-check `}>
+          <input
+            id={`${questionVariableName}-input`}
+            name={questionVariableName}
+            required
+            defaultChecked
+            type="radio"
+            onClick={() => {
+              // eslint-disable-next-line no-param-reassign
+              survey[questionVariableName] = 3;
+            }}
+            className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
+          />
 
-        <div className="text-sm font ">4</div>
-      </div>
-      <div className={`flex gap-6 items-center${bg} + rounded-r-md`}>
-        <input
-          id={`${questionVariableName}-input`}
-          name={questionVariableName}
-          required
-          type="radio"
-          onClick={() => {
-            // eslint-disable-next-line no-param-reassign
-            survey[questionVariableName] = 5;
-          }}
-          className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
-        />
+          <div className="text-sm font ">3</div>
+        </div>
+        <div className={`flex gap-4 items-center${bg} form-check `}>
+          <input
+            id={`${questionVariableName}-input`}
+            name={questionVariableName}
+            required
+            type="radio"
+            onClick={() => {
+              // eslint-disable-next-line no-param-reassign
+              survey[questionVariableName] = 4;
+            }}
+            className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
+          />
 
-        <div className="text-sm font ">5</div>
+          <div className="text-sm font ">4</div>
+        </div>
+        <div className={`flex gap-4 items-center${bg} rounded-r-md form-check`}>
+          <input
+            id={`${questionVariableName}-input`}
+            name={questionVariableName}
+            required
+            type="radio"
+            onClick={() => {
+              // eslint-disable-next-line no-param-reassign
+              survey[questionVariableName] = 5;
+            }}
+            className="float-left w-4 h-4 align-top checked:bg-otrl-red bg-center bg-no-repeat bg-contain rounded-full border border-gray-800 checked:border-otrl-red focus:outline-none transition duration-200 appearance-none form-check-input"
+          />
+
+          <div className="text-sm font ">5</div>
+        </div>
       </div>
     </>
   );
