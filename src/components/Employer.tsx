@@ -5,6 +5,9 @@ import { EmployerGet } from "@/lib/types";
 import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
 import { fetchEmployer } from "@/pages/api/db/employer";
 
+import { Clipboard } from "./ui/Clipboard";
+import { Spinner } from "./ui/Spinner";
+
 type EmployerProps = {
   setAuth: any; // react useState handler for auth
   setEmployer: any;
@@ -23,11 +26,38 @@ const EmployerInformation = ({
   digitalSignature,
 }: EmployerProps) => {
   const employerPk = useRef<HTMLInputElement>(null);
-  const [foundMsg, setFoundMsg] = useState("");
-  const [resMsg, setResMsg] = useState("");
+  const [foundMsg, setFoundMsg] = useState(<></>);
+  const [resMsg, setResMsg] = useState(<></>);
   const [unverified, setUnverified] = useState(false);
   const [verified, setVerified] = useState(false);
   const [unverifiedEmployer, setUnverifiedEmployer] = useState({});
+  const [msgLoading, setMsgLoading] = useState(false);
+
+  let msgDiv;
+  if (unverified) {
+    msgDiv = (
+      <div className="flex flex-wrap gap-x-2 items-center break-words">
+        {"Message: "}
+        {msgLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {signMsg}
+            <button
+              aria-label="Copy to Clipboard"
+              onClick={() => {
+                navigator.clipboard.writeText(signMsg);
+              }}
+            >
+              <Clipboard />
+            </button>
+          </>
+        )}
+      </div>
+    );
+  } else {
+    msgDiv = null;
+  }
 
   const getEmployer = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -35,7 +65,7 @@ const EmployerInformation = ({
     // No input
     if (!employerPk.current?.value) {
       setUnverifiedEmployer({});
-      setFoundMsg("❌ No record found!");
+      setFoundMsg(<>❌ No record found!</>);
       setUnverified(false);
       setAuth(false);
       return;
@@ -45,22 +75,25 @@ const EmployerInformation = ({
       employerPk: employerPk.current?.value,
     };
 
+    setFoundMsg(<Spinner />);
     const employerFetched = await fetchEmployer(param);
 
     if (employerFetched) {
       setUnverifiedEmployer(employerFetched);
+      setFoundMsg(<>{`Employer: ${employerFetched.companyName}`}</>);
+      setMsgLoading(true);
       setUnverified(true);
       const msg = await generateMessage(param.employerPk);
+      setMsgLoading(false);
       if (msg === "Error") {
         setSubmit(1);
       }
       setSignMsg(msg);
-      setFoundMsg(`Employer: ${employerFetched.companyName}`);
       return;
     }
     setUnverifiedEmployer({});
     setSignMsg("");
-    setFoundMsg("❌ No record found!");
+    setFoundMsg(<>❌ No record found!</>);
     setUnverified(false);
     setAuth(false);
   };
@@ -68,6 +101,7 @@ const EmployerInformation = ({
   const verifySignature = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
+    setResMsg(<Spinner />);
     const verification: boolean = await verifyMessage(
       employerPk.current?.value ? employerPk.current?.value : "",
       signMsg,
@@ -77,12 +111,12 @@ const EmployerInformation = ({
     if (verification) {
       setEmployer(unverifiedEmployer);
       setVerified(true);
-      setResMsg("✔ Digital Signature Verified!");
+      setResMsg(<>✔ Digital Signature Verified!</>);
       setAuth(true);
       return;
     }
     setEmployer(null);
-    setResMsg("❌ Couldn't Verify Digital Signature");
+    setResMsg(<>{"❌ Couldn't Verify Digital Signature"}</>);
     setVerified(false);
     setAuth(false);
   };
@@ -118,10 +152,8 @@ const EmployerInformation = ({
             {foundMsg}
           </div>
         </div>
-        <div className="mt-8 break-words">
-          {unverified ? `Message: ${signMsg}` : null}
-        </div>
-        {unverified ? (
+        <div className="flex mt-8 break-words">{msgDiv}</div>
+        {unverified && !msgLoading ? (
           <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8">
             <form onSubmit={verifySignature} className="flex gap-2 ">
               <div className="flex flex-wrap gap-4 ">

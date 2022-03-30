@@ -4,13 +4,15 @@ import { SubHeader } from "@/layout/SubHeader";
 import { EmployeeInfoGet } from "@/lib/types";
 import { getEmployeeInfo } from "@/pages/api/db/employee";
 
+import { Spinner } from "./ui/Spinner";
+
 type EmployeeProps = {
   setEmployeeInfo: any;
 };
 
 const EmployeeInformation = ({ setEmployeeInfo }: EmployeeProps) => {
   const employeePk = useRef<HTMLInputElement>(null);
-  const [foundMsg, setFoundMsg] = useState("");
+  const [foundMsg, setFoundMsg] = useState(<></>);
   const [verified, setVerified] = useState(false);
 
   const getEmployee = async (e: React.SyntheticEvent) => {
@@ -19,7 +21,7 @@ const EmployeeInformation = ({ setEmployeeInfo }: EmployeeProps) => {
     // No input
     if (!employeePk.current?.value) {
       setEmployeeInfo(null);
-      setFoundMsg("❌ No record found!");
+      setFoundMsg(<>❌ No record found!</>);
       setVerified(false);
       return;
     }
@@ -28,18 +30,19 @@ const EmployeeInformation = ({ setEmployeeInfo }: EmployeeProps) => {
       employeePk: employeePk.current?.value,
     };
 
+    setFoundMsg(<Spinner />);
     const employeeFetched = await getEmployeeInfo(param);
 
     if (employeeFetched) {
       setEmployeeInfo(employeeFetched);
       setVerified(true);
       setFoundMsg(
-        `Name: ${employeeFetched.firstName} ${employeeFetched.lastName}`
+        <>{`Name: ${employeeFetched.firstName} ${employeeFetched.lastName}`}</>
       );
       return;
     }
     setEmployeeInfo(null);
-    setFoundMsg("❌ No record found!");
+    setFoundMsg(<>❌ No record found!</>);
     setVerified(false);
   };
 

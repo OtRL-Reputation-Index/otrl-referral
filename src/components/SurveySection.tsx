@@ -24,6 +24,7 @@ const SurveySection = ({
 }: SurveySectionProps) => {
   const [exp, setExp] = useState(0);
   const [tried, setTried] = useState(false);
+  const [load, setLoading] = useState(false);
   const [survey] = useState<Survey>({
     sWorkTime: 3,
     sPressure: 3,
@@ -73,7 +74,7 @@ const SurveySection = ({
       setTried(true);
       return;
     }
-
+    setLoading(true);
     const timeNow = new Date();
     const param: Submit = {
       employeePk: employeeInfo?.pk ? employeeInfo?.pk : "",
@@ -170,6 +171,21 @@ const SurveySection = ({
               </div>
             ) : null}
             <div className="flex justify-end mt-16 mr-8">
+              {load ? (
+                <div className="flex justify-center ">
+                  <div className="flex p-5 space-x-3 loader">
+                    <div className="animate-bounce">
+                      <div className="w-5 h-5 bg-gradient-to-r from-gray-300 via-gray-400 to-blue-400 rounded-full background-delay-1 background-animate"></div>
+                    </div>
+                    <div className="animate-bounce">
+                      <div className="w-5 h-5 bg-gradient-to-r from-gray-300 via-gray-400 to-blue-400 rounded-full background-delay-3 background-animate-2"></div>
+                    </div>
+                    <div className="animate-bounce">
+                      <div className="w-5 h-5 bg-gradient-to-r from-gray-300 via-gray-400 to-blue-400 rounded-full background-delay-6 background-animate"></div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
               <button
                 type="submit"
                 className=" font-heading text-2xl font-light text-white bg-otrl-light-blue hover:bg-otrl-blue rounded-sm transition ease-in-out m font- duration-400"
