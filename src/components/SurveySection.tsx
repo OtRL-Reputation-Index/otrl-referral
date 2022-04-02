@@ -166,7 +166,9 @@ const SurveySection = ({
               <div className="text-sm font ">No</div>
             </div>
           </div>
-          <ExperienceElement setExp={setExp} />
+          <div className="px-2">
+            <ExperienceElement setExp={setExp} />
+          </div>
           {!exp && tried ? (
             <div className="-mb-4 h-4 text-xs text-otrl-red">
               Please select an option!

@@ -10,10 +10,8 @@ const ExperienceElement = ({ setExp }: ExperienceElementProps) => {
   const [option, setOption] = useState("Select an Option");
 
   return (
-    <div className="flex gap-6 mt-8">
-      <div className="mt-1">
-        How long have they been working for the company?
-      </div>
+    <div className="flex gap-6 items-center mt-8">
+      <div className="">How long have they been working for the company?</div>
       <Menu as="div" className="relative">
         <Menu.Button className="inline-flex justify-between py-2 px-4 w-44 text-white bg-otrl-red hover:bg-otrl-light-red rounded-sm transition ease-in-out duration-400">
           {option}
