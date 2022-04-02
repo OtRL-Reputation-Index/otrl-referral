@@ -152,7 +152,7 @@ const EmployerInformation = ({
             {foundMsg}
           </div>
         </div>
-        <div className="flex mt-8 break-words">{msgDiv}</div>
+        <div className="flex mt-8 break-all">{msgDiv}</div>
         {unverified && !msgLoading ? (
           <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8">
             <form onSubmit={verifySignature} className="flex gap-2 ">
