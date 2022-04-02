@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
 
+import { Clipboard } from "@/components/ui/Clipboard";
+import { Spinner } from "@/components/ui/Spinner";
 import { SubHeader } from "@/layout/SubHeader";
 import { EmployerGet } from "@/lib/types";
 import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
 import { fetchEmployer } from "@/pages/api/db/employer";
-
-import { Clipboard } from "./ui/Clipboard";
-import { Spinner } from "./ui/Spinner";
 
 type EmployerProps = {
   setAuth: any; // react useState handler for auth

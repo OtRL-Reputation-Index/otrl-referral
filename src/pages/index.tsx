@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 
-import { EmployeeInformation } from "@/components/Employee";
-import { EmployerInformation } from "@/components/Employer";
-import { SurveySection } from "@/components/SurveySection";
+import { EmployeeInformation } from "@/components/referral/Employee";
+import { EmployerInformation } from "@/components/referral/Employer";
+import { SurveySection } from "@/components/referral/survey/SurveySection";
 import { Confirmation } from "@/layout/Confirmation";
 import { Header } from "@/layout/Header";
 import { Meta } from "@/layout/Meta";
