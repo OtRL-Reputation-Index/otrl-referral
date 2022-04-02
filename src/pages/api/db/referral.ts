@@ -1,4 +1,4 @@
-import { PrevReferral, Referral, ReferralGet } from "@/lib/types";
+import { PrevReferral, ReferralGet, ReferralPost } from "@/lib/types";
 import AWS from "@/pages/api/db/aws";
 
 /**
@@ -45,7 +45,10 @@ const fetchPrevReferral = async (
   return undefined;
 };
 
-const postReferral = async (referral: Referral): Promise<boolean> => {
+const postReferral = async ({
+  referral,
+  surveyScore,
+}: ReferralPost): Promise<boolean> => {
   const docClient = new AWS.DynamoDB.DocumentClient();
 
   const table = "Referral";
@@ -68,6 +71,7 @@ const postReferral = async (referral: Referral): Promise<boolean> => {
       s_fulltime: referral.survey.sFullTime,
       signature: referral.signature,
       submission_time: referral.submittedAt.toISOString(),
+      score: surveyScore,
     },
   };
 

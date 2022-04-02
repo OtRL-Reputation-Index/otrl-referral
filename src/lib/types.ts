@@ -101,3 +101,8 @@ export interface Submit {
   employeePk: string;
   referral: Referral;
 }
+
+export interface ReferralPost {
+  referral: Referral;
+  surveyScore: number;
+}

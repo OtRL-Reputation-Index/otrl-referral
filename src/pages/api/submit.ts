@@ -45,7 +45,7 @@ const submitReferral = async ({
       (employee.numReferrals + 1);
   }
 
-  if (!(await postReferral(referral))) {
+  if (!(await postReferral({ referral, surveyScore: ruiScore }))) {
     return false;
   }
   const params: EmployeeUpdate = {
