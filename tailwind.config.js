@@ -47,7 +47,7 @@ module.exports = {
         otrl: {
           red: '#e10600',
           pink: '#ffcece',
-          'light-red': '#eb2f25',
+          'light-red': '#c40c19',
           blue: '#041e42',
           'light-blue': '#0067b9',
         },

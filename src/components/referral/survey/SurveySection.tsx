@@ -192,7 +192,7 @@ const SurveySection = ({
             ) : null}
             <button
               type="submit"
-              className=" font-heading text-2xl font-light text-white bg-otrl-light-blue hover:bg-otrl-blue rounded-sm transition ease-in-out m font- duration-400"
+              className="font-heading text-2xl font-light text-white bg-otrl-light-blue hover:bg-otrl-blue rounded-sm hover:drop-shadow-xl transition ease-in-out duration-400"
             >
               <div className="py-3 px-6">SUBMIT</div>
             </button>

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 
-import { EmployeeInformation } from "@/components/referral/Employee";
-import { EmployerInformation } from "@/components/referral/Employer";
+import { EmployeeInformation } from "@/components/referral/EmployeeInformation";
+import { EmployerInformation } from "@/components/referral/EmployerInformation";
 import { SurveySection } from "@/components/referral/survey/SurveySection";
-import { Confirmation } from "@/layout/Confirmation";
+import { SurveyConfirmation } from "@/components/referral/SurveyConfirmation";
 import { Header } from "@/layout/Header";
 import { Meta } from "@/layout/Meta";
 import { Main } from "@/templates/Main";
@@ -43,9 +43,9 @@ const Index = () => {
       </>
     );
   } else if (submit === 2) {
-    body = <Confirmation success={true} />;
+    body = <SurveyConfirmation success={true} />;
   } else if (submit === 1) {
-    body = <Confirmation success={false} />;
+    body = <SurveyConfirmation success={false} />;
   }
 
   return (
@@ -57,7 +57,7 @@ const Index = () => {
         />
       }
     >
-      <Header />
+      <Header heading="Employer Referral Form" />
       {body}
     </Main>
   );
