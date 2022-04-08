@@ -13,7 +13,7 @@ const Header = () => {
           />
         </a>
       </div>
-      <h1 className=" text-4xl ">Employee Referral Form</h1>
+      <h1 className=" text-4xl ">Reputation Index</h1>
     </div>
   );
 };
