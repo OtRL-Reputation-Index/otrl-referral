@@ -54,7 +54,7 @@ const EmployeeRegistration = ({
 
   return (
     <form onSubmit={tryRegister} className="">
-      <div className="flex flex-wrap gap-4 mt-8">
+      <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8 sm:gap-4">
         <label htmlFor="employee-email-input">
           <div className="mt-2">Email</div>
         </label>
@@ -101,9 +101,9 @@ const EmployeeRegistration = ({
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 mt-8">
+      <div className="flex flex-wrap gap-x-16 gap-y-4 mt-8 sm:gap-x-4">
         <label htmlFor="employee-number-input">
-          <div className="mt-2">Phone Number</div>
+          <div className="mt-2">Phone</div>
         </label>
         <input
           id="employee-number-input"
@@ -113,9 +113,9 @@ const EmployeeRegistration = ({
           required
           type="tel"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          className="py-2 px-4 w-60 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
+          className="py-2 px-4 w-48 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
         />
-        <div className="mt-2">111-222-3333</div>
+        <div className="mt-2">Ex: 111-222-3333</div>
       </div>
       <div className="flex justify-end mt-16 mr-8">
         {load ? (

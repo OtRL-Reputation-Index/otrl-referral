@@ -69,7 +69,7 @@ const EmployerRegistration = ({
           className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
         />
       </div>
-      <div className="flex flex-wrap gap-4 mt-8">
+      <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8 sm:gap-4">
         <label htmlFor="employer-email-input">
           <div className="mt-2">Email</div>
         </label>
@@ -116,21 +116,23 @@ const EmployerRegistration = ({
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 mt-8">
+      <div className="flex flex-wrap gap-x-16 gap-y-4 mt-8 sm:gap-x-4">
         <label htmlFor="employer-number-input">
-          <div className="mt-2">Phone Number</div>
+          <div className="mt-2">Phone</div>
         </label>
-        <input
-          id="employer-number-input"
-          name="employer-number"
-          placeholder="123-456-7890"
-          ref={employerPhoneNum}
-          required
-          type="tel"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          className="py-2 px-4 w-60 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
-        />
-        <div className="mt-2">111-222-3333</div>
+        <div className="flex gap-4">
+          <input
+            id="employer-number-input"
+            name="employer-number"
+            placeholder="Phone Number"
+            ref={employerPhoneNum}
+            required
+            type="tel"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            className="py-2 px-4 w-48 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
+          />
+          <div className="mt-2">Ex: 111-222-3333</div>
+        </div>
       </div>
       <div className="flex justify-end mt-16 mr-8">
         {load ? (

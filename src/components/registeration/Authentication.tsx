@@ -3,7 +3,10 @@ import React, { useRef, useState } from "react";
 import { Clipboard } from "@/components/ui/Clipboard";
 import { Spinner } from "@/components/ui/Spinner";
 import { SubHeader } from "@/layout/SubHeader";
+import { EmployeeInfoGet, EmployerGet } from "@/lib/types";
 import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
+import { getEmployeeInfo } from "@/pages/api/db/employee";
+import { fetchEmployer } from "@/pages/api/db/employer";
 
 type AuthenticationProps = {
   setAuth: any; // react useState handler for auth
@@ -17,6 +20,7 @@ const Authentication = ({
   setSubmit,
 }: AuthenticationProps) => {
   const [signMsg, setSignMsg] = useState("");
+  const [foundMsg, setFoundMsg] = useState(<></>);
   const [resMsg, setResMsg] = useState(<></>);
   const [unverified, setUnverified] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -57,6 +61,22 @@ const Authentication = ({
       setAuth(false);
       return;
     }
+
+    // Employee already exists
+    const employeeParam: EmployeeInfoGet = {
+      employeePk: publicKey.current?.value,
+    };
+    const employerParam: EmployerGet = { employerPk: publicKey.current?.value };
+    const employerCheck = await fetchEmployer(employerParam);
+    const employeeCheck = await getEmployeeInfo(employeeParam);
+
+    if (employerCheck || employeeCheck) {
+      setFoundMsg(<>❌ Unique identifier already exists!</>);
+      setUnverified(false);
+      setAuth(false);
+      return;
+    }
+    setFoundMsg(<></>);
     setMsgLoading(true);
     setUnverified(true);
     const msg = await generateMessage(publicKey.current?.value);
@@ -115,6 +135,9 @@ const Authentication = ({
               </button>
             </div>
           </form>
+          <div className={`mt-2 ${unverified ? "" : "text-red-500"}`}>
+            {foundMsg}
+          </div>
         </div>
         <div className="flex mt-8 break-all">{msgDiv}</div>
         {unverified && !msgLoading ? (
