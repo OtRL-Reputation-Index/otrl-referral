@@ -1,9 +1,11 @@
 import Router from "next/router";
 
-type ConfirmationProps = {
+type RegistrationConfirmationProps = {
   success: boolean;
 };
-const Confirmation = ({ success }: ConfirmationProps) => {
+const RegistrationConfirmation = ({
+  success,
+}: RegistrationConfirmationProps) => {
   const btn = success ? "GO BACK" : "TRY AGAIN";
   return (
     <>
@@ -13,15 +15,14 @@ const Confirmation = ({ success }: ConfirmationProps) => {
         <div className="text-green-700">
           <div className="mt-8 font-heading text-4xl">Success!</div>
           <div className="mt-4 text-black">
-            Your survey has been successfully submitted!
+            Your have been successfully registered!
           </div>
         </div>
       ) : (
         <div className="text-otrl-red">
           <div className="mt-8 font-heading text-4xl">Whoops!</div>
           <div className="mt-4 text-black">
-            There was an error submitting the survey. Please contact the
-            administrator!
+            There was an error registering. Please contact the administrator!
           </div>
         </div>
       )}
@@ -40,4 +41,4 @@ const Confirmation = ({ success }: ConfirmationProps) => {
   );
 };
 
-export { Confirmation };
+export { RegistrationConfirmation };

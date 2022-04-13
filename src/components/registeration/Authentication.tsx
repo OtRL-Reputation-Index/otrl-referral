@@ -1,38 +1,31 @@
 import React, { useRef, useState } from "react";
 
+import { Clipboard } from "@/components/ui/Clipboard";
+import { Spinner } from "@/components/ui/Spinner";
 import { SubHeader } from "@/layout/SubHeader";
-import { EmployerGet } from "@/lib/types";
+import { EmployeeInfoGet, EmployerGet } from "@/lib/types";
 import { generateMessage, verifyMessage } from "@/pages/api/blockchain/verify";
+import { getEmployeeInfo } from "@/pages/api/db/employee";
 import { fetchEmployer } from "@/pages/api/db/employer";
 
-import { Clipboard } from "./ui/Clipboard";
-import { Spinner } from "./ui/Spinner";
-
-type EmployerProps = {
+type AuthenticationProps = {
   setAuth: any; // react useState handler for auth
-  setEmployer: any;
-  signMsg: any;
-  setSignMsg: any;
+  publicKey: any;
   setSubmit: any;
-  digitalSignature: any;
 };
 
-const EmployerInformation = ({
+const Authentication = ({
   setAuth,
-  setEmployer,
-  signMsg,
-  setSignMsg,
+  publicKey,
   setSubmit,
-  digitalSignature,
-}: EmployerProps) => {
-  const employerPk = useRef<HTMLInputElement>(null);
+}: AuthenticationProps) => {
+  const [signMsg, setSignMsg] = useState("");
   const [foundMsg, setFoundMsg] = useState(<></>);
   const [resMsg, setResMsg] = useState(<></>);
   const [unverified, setUnverified] = useState(false);
   const [verified, setVerified] = useState(false);
-  const [unverifiedEmployer, setUnverifiedEmployer] = useState({});
   const [msgLoading, setMsgLoading] = useState(false);
-
+  const digitalSignature = useRef<HTMLInputElement>(null);
   let msgDiv;
   if (unverified) {
     msgDiv = (
@@ -59,43 +52,39 @@ const EmployerInformation = ({
     msgDiv = null;
   }
 
-  const getEmployer = async (e: React.SyntheticEvent) => {
+  const getMessage = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     // No input
-    if (!employerPk.current?.value) {
-      setUnverifiedEmployer({});
-      setFoundMsg(<>❌ No record found!</>);
+    if (!publicKey.current?.value) {
       setUnverified(false);
       setAuth(false);
       return;
     }
 
-    const param: EmployerGet = {
-      employerPk: employerPk.current?.value,
+    // Employee already exists
+    const employeeParam: EmployeeInfoGet = {
+      employeePk: publicKey.current?.value,
     };
+    const employerParam: EmployerGet = { employerPk: publicKey.current?.value };
+    const employerCheck = await fetchEmployer(employerParam);
+    const employeeCheck = await getEmployeeInfo(employeeParam);
 
-    setFoundMsg(<Spinner />);
-    const employerFetched = await fetchEmployer(param);
-
-    if (employerFetched) {
-      setUnverifiedEmployer(employerFetched);
-      setFoundMsg(<>{`Employer: ${employerFetched.companyName}`}</>);
-      setMsgLoading(true);
-      setUnverified(true);
-      const msg = await generateMessage(param.employerPk);
-      setMsgLoading(false);
-      if (msg === "Error") {
-        setSubmit(1);
-      }
-      setSignMsg(msg);
+    if (employerCheck || employeeCheck) {
+      setFoundMsg(<>❌ Unique identifier already exists!</>);
+      setUnverified(false);
+      setAuth(false);
       return;
     }
-    setUnverifiedEmployer({});
-    setSignMsg("");
-    setFoundMsg(<>❌ No record found!</>);
-    setUnverified(false);
-    setAuth(false);
+    setFoundMsg(<></>);
+    setMsgLoading(true);
+    setUnverified(true);
+    const msg = await generateMessage(publicKey.current?.value);
+    setMsgLoading(false);
+    if (msg === "Error") {
+      setSubmit(1);
+    }
+    setSignMsg(msg);
   };
 
   const verifySignature = async (e: React.SyntheticEvent) => {
@@ -103,19 +92,17 @@ const EmployerInformation = ({
 
     setResMsg(<Spinner />);
     const verification: boolean = await verifyMessage(
-      employerPk.current?.value ? employerPk.current?.value : "",
+      publicKey.current?.value ? publicKey.current?.value : "",
       signMsg,
       digitalSignature.current?.value ? digitalSignature.current?.value : ""
     );
     // Verify digital signature
     if (verification) {
-      setEmployer(unverifiedEmployer);
       setVerified(true);
       setResMsg(<>✔ Digital Signature Verified!</>);
       setAuth(true);
       return;
     }
-    setEmployer(null);
     setResMsg(<>{"❌ Couldn't Verify Digital Signature"}</>);
     setVerified(false);
     setAuth(false);
@@ -123,19 +110,19 @@ const EmployerInformation = ({
 
   return (
     <div className="font-body text-sm">
-      <SubHeader subHeading="Employer Information" />
+      <SubHeader subHeading="Authentication" />
       <div className="mx-3">
         <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8">
-          <form onSubmit={getEmployer} className="flex gap-2 ">
+          <form onSubmit={getMessage} className="flex gap-2 ">
             <div className="flex flex-wrap gap-4 ">
               <label htmlFor="employer-pk-input">
-                <div className="mt-2">Employer Unique Identifier</div>
+                <div className="mt-2">Unique Identifier</div>
               </label>
               <input
                 id="employer-pk-input"
                 name="employer-pk"
                 placeholder="Public Key"
-                ref={employerPk}
+                ref={publicKey}
                 required
                 type="text"
                 className="py-2 px-4 w-48 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
@@ -189,4 +176,4 @@ const EmployerInformation = ({
   );
 };
 
-export { EmployerInformation };
+export { Authentication };

@@ -4,7 +4,7 @@ import { SubHeader } from "@/layout/SubHeader";
 import { EmployeeInfoGet } from "@/lib/types";
 import { getEmployeeInfo } from "@/pages/api/db/employee";
 
-import { Spinner } from "./ui/Spinner";
+import { Spinner } from "../ui/Spinner";
 
 type EmployeeProps = {
   setEmployeeInfo: any;

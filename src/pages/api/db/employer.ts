@@ -49,4 +49,54 @@ const fetchEmployer = async (
   return undefined;
 };
 
-export { fetchEmployer };
+/**
+ * Creating a new employer
+ * @param employer employer to add to the database
+ * @returns whether employer was added
+ */
+const postEmployer = async (employer: Employer): Promise<boolean> => {
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const table = "Employer";
+  const idParams = {
+    TableName: table,
+    Key: {
+      id: "counter", // partition key
+    },
+    UpdateExpression: "Add #last_id :increment",
+    ExpressionAttributeNames: {
+      "#last_id": "last_id",
+    },
+    ExpressionAttributeValues: {
+      ":increment": 1,
+    },
+    ReturnValues: "ALL_NEW",
+  };
+
+  try {
+    const idResult = await docClient.update(idParams).promise();
+    if (idResult.Attributes && idResult.Attributes.last_id) {
+      const params = {
+        TableName: table,
+        Item: {
+          id: idResult.Attributes.last_id.toString(), // partition key
+          pk: employer.pk,
+          company_name: employer.companyName,
+          email: employer.email,
+          first_name: employer.firstName,
+          middle_name: employer.middleName,
+          last_name: employer.lastName,
+          phone_num: employer.phoneNum,
+        },
+      };
+
+      await docClient.put(params).promise();
+      return true;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+  return false;
+};
+
+export { fetchEmployer, postEmployer };
