@@ -188,7 +188,7 @@ const postEmployee = async (employee: Employee): Promise<boolean> => {
           last_name: employee.lastName,
           phone_num: employee.phoneNum,
           rui: employee.rui,
-          numReferrals: employee.numReferrals,
+          referrals_num: employee.numReferrals,
         },
       };
 
