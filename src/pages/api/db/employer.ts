@@ -1,4 +1,4 @@
-import { Employer, EmployerGet } from "@/lib/types";
+import { Employer, EmployerGet, SelectCompanyName } from "@/lib/types";
 import AWS from "@/pages/api/db/aws";
 
 /**
@@ -42,6 +42,43 @@ const fetchEmployer = async (
       employers.push(employer);
     });
     return employers ? employers[0] : undefined;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return undefined;
+};
+
+/**
+ * Fetch an employer from dynamoDB
+ * @param companyName Employer's public key used to identify on the blockchain
+ * @returns an employers company name as label and value pair
+ * result [ {company_name: "X"}, {company_name: "Y"}]
+ * employerNames [{label: "X", value: "X"}, {label: "Y", value: "Y"}
+ */
+const queryEmployers = async (): Promise<SelectCompanyName[] | undefined> => {
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const table = "Employer";
+
+  const params = {
+    TableName: table, // scanning the tables
+    ProjectionExpression: "company_name", // only looking at companyname
+  };
+
+  try {
+    const result = await docClient.scan(params).promise();
+    const employerNames: SelectCompanyName[] = [];
+    result.Items?.forEach((item) => {
+      /* From the employer table the counter does not have a company name so skipping over it */
+      if (!item.company_name) {
+        return;
+      }
+      employerNames.push({
+        label: item.company_name,
+        value: item.company_name,
+      });
+    });
+    return employerNames;
   } catch (err) {
     console.log(err);
   }
@@ -99,4 +136,4 @@ const postEmployer = async (employer: Employer): Promise<boolean> => {
   return false;
 };
 
-export { fetchEmployer, postEmployer };
+export { fetchEmployer, postEmployer, queryEmployers };

@@ -1,55 +1,62 @@
 import React, { useRef, useState } from "react";
 
-import { Employer } from "@/lib/types";
+import Creatable from "react-select/creatable";
+
+import { Employee, Employer, SelectCompanyName } from "@/lib/types";
+import { postEmployee } from "@/pages/api/db/employee";
 import { postEmployer } from "@/pages/api/db/employer";
 
-export type EmployerRegistrationProps = {
+export type RegistrationInfoProps = {
   setSubmit: any;
   publicKey: any;
+  companyNames: SelectCompanyName[];
+  isEmployer: boolean;
 };
 
-const EmployerRegistration = ({
+const RegistrationInfo = ({
   setSubmit,
   publicKey,
-}: EmployerRegistrationProps) => {
+  companyNames,
+  isEmployer,
+}: RegistrationInfoProps) => {
   const [load, setLoading] = useState(false);
-  const companyName = useRef<HTMLInputElement>(null);
-  const employerEmail = useRef<HTMLInputElement>(null);
-  const employerFName = useRef<HTMLInputElement>(null);
-  const employerMName = useRef<HTMLInputElement>(null);
-  const employerLName = useRef<HTMLInputElement>(null);
-  const employerPhoneNum = useRef<HTMLInputElement>(null);
+  const [companySelected, setCompanySelected] = useState("");
+  const userEmail = useRef<HTMLInputElement>(null);
+  const userFName = useRef<HTMLInputElement>(null);
+  const userMName = useRef<HTMLInputElement>(null);
+  const userLName = useRef<HTMLInputElement>(null);
+  const userPhoneNum = useRef<HTMLInputElement>(null);
 
   const tryRegister = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     setLoading(true);
-
-    const employer: Employer = {
+    let user: Employee | Employer = {
       id: "0",
       pk: publicKey.current?.value ? publicKey.current?.value : "",
-      companyName: companyName.current?.value ? companyName.current?.value : "",
-      firstName: employerFName.current?.value
-        ? employerFName.current?.value
-        : "",
-      middleName: employerMName.current?.value
-        ? employerMName.current?.value
+      companyName: companySelected,
+      firstName: userFName.current?.value ? userFName.current?.value : "",
+      middleName: userMName.current?.value
+        ? userMName.current?.value
         : undefined,
-      lastName: employerLName.current?.value
-        ? employerLName.current?.value
-        : "",
-      phoneNum: employerPhoneNum.current?.value
-        ? employerPhoneNum.current?.value
-        : "",
-      email: employerEmail.current?.value ? employerEmail.current?.value : "",
+      lastName: userLName.current?.value ? userLName.current?.value : "",
+      phoneNum: userPhoneNum.current?.value ? userPhoneNum.current?.value : "",
+      email: userEmail.current?.value ? userEmail.current?.value : "",
     };
 
-    console.log(employer);
-    const submitResult = await postEmployer(employer);
+    if (!isEmployer) {
+      // is an employee
+      user = { ...user, rui: 0, numReferrals: 0 };
+    }
+
+    const submitResult = isEmployer
+      ? await postEmployer(user as Employer)
+      : await postEmployee(user as Employee);
+
     if (submitResult) {
-      setSubmit(2);
+      setSubmit(2); // successful
     } else {
-      setSubmit(1);
+      setSubmit(1); // failed
     }
   };
 
@@ -59,57 +66,65 @@ const EmployerRegistration = ({
         <label htmlFor="company-name-input">
           <div className="mt-2">Company Name</div>
         </label>
-        <input
-          id="company-name-input"
-          name="company-name"
-          placeholder="On the Road Lending"
-          ref={companyName}
-          required
-          type="text"
-          className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
-        />
+        <Creatable
+          options={companyNames}
+          onChange={(option) => {
+            if (option) setCompanySelected(option?.label);
+          }}
+          className=" w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 2,
+            colors: {
+              ...theme.colors,
+              text: "orangered",
+              primary25: "#ffcece",
+              primary: "#e10600",
+            },
+          })}
+        ></Creatable>
       </div>
       <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8 sm:gap-4">
-        <label htmlFor="employer-email-input">
+        <label htmlFor="user-email-input">
           <div className="mt-2">Email</div>
         </label>
         <input
-          id="employer-email-input"
-          name="employer-email"
+          id="user-email-input"
+          name="user-email"
           placeholder="Email Address"
-          ref={employerEmail}
+          ref={userEmail}
           required
           type="email"
           className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition min-w-36 duration-400"
         />
       </div>
       <div className="flex flex-wrap gap-4 mt-8">
-        <label htmlFor="employer-name-input">
+        <label htmlFor="user-name-input">
           <div className="mt-2">Name</div>
         </label>
         <div className="flex flex-wrap gap-2">
           <input
-            id="employer-first-name-input"
-            name="employer-first-name"
+            id="user-first-name-input"
+            name="user-first-name"
             placeholder="First Name"
-            ref={employerFName}
+            ref={userFName}
             required
             type="text"
             className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition sm:w-60 min-w-36 duration-400"
           />
           <input
-            id="employer-middle-name-input"
-            name="employer-middle-name"
+            id="user-middle-name-input"
+            name="user-middle-name"
             placeholder="Middle Name"
-            ref={employerMName}
+            ref={userMName}
             type="text"
             className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition sm:w-52 min-w-36 duration-400"
           />
           <input
-            id="employer-last-name-input"
-            name="employer-last-name"
+            id="user-last-name-input"
+            name="user-last-name"
             placeholder="Last Name"
-            ref={employerLName}
+            ref={userLName}
             required
             type="text"
             className="py-2 px-4 w-80 hover:text-black bg-gray-200 hover:bg-gray-300 rounded-md transition sm:w-60 min-w-36 duration-400"
@@ -117,15 +132,15 @@ const EmployerRegistration = ({
         </div>
       </div>
       <div className="flex flex-wrap gap-x-16 gap-y-4 mt-8 sm:gap-x-4">
-        <label htmlFor="employer-number-input">
+        <label htmlFor="user-number-input">
           <div className="mt-2">Phone</div>
         </label>
         <div className="flex gap-4">
           <input
-            id="employer-number-input"
-            name="employer-number"
+            id="user-number-input"
+            name="user-number"
             placeholder="Phone Number"
-            ref={employerPhoneNum}
+            ref={userPhoneNum}
             required
             type="tel"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -161,4 +176,4 @@ const EmployerRegistration = ({
   );
 };
 
-export { EmployerRegistration };
+export { RegistrationInfo };

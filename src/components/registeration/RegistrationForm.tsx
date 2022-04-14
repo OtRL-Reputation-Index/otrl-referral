@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 
-import { EmployeeRegistration } from "@/components/registeration/EmployeeRegistration";
-import { EmployerRegistration } from "@/components/registeration/EmployerRegistration";
+import { RegistrationInfo } from "@/components/registeration/RegistrationInfo";
 import { SubHeader } from "@/layout/SubHeader";
+import { SelectCompanyName } from "@/lib/types";
 
 export type RegisterationFormProps = {
   setSubmit: any;
   publicKey: any;
+  companyNames: SelectCompanyName[];
 };
 
 const RegisterationForm = ({
   setSubmit,
   publicKey,
+  companyNames,
 }: RegisterationFormProps) => {
   const [employerReg, setEmployerReg] = useState(true);
 
@@ -53,11 +55,12 @@ const RegisterationForm = ({
             </div>
           </div>
         </div>
-        {employerReg ? (
-          <EmployerRegistration setSubmit={setSubmit} publicKey={publicKey} />
-        ) : (
-          <EmployeeRegistration setSubmit={setSubmit} publicKey={publicKey} />
-        )}
+        <RegistrationInfo
+          setSubmit={setSubmit}
+          publicKey={publicKey}
+          companyNames={companyNames}
+          isEmployer={employerReg}
+        />
       </div>
     </div>
   );

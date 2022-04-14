@@ -30,7 +30,6 @@ const fetchPrevReferral = async (
   try {
     const result = await docClient.query(params).promise();
     const prevReferrals: PrevReferral[] = [];
-    console.log(result);
     result.Items?.forEach((item) => {
       const prevReferral: PrevReferral = {
         score: item.score,
