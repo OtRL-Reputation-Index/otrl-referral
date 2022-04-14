@@ -50,9 +50,9 @@ const fetchEmployer = async (
 };
 
 /**
- * Fetch an employer from dynamoDB
- * @param companyName Employer's public key used to identify on the blockchain
- * @returns an employers company name as label and value pair
+ * Fetch employer names from dynamoDB
+ * @param void
+ * @returns employers company name as label and value pair
  * result [ {company_name: "X"}, {company_name: "Y"}]
  * employerNames [{label: "X", value: "X"}, {label: "Y", value: "Y"}
  */
