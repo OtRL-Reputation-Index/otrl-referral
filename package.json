@@ -17,7 +17,7 @@
     "@headlessui/react": "^1.5.0",
     "aws-sdk": "^2.1090.0",
     "bitcoinjs-message": "^2.2.0",
-    "next": "11.1",
+    "next": "^12.1.5",
     "next-seo": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
