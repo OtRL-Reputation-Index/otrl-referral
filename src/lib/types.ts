@@ -1,6 +1,7 @@
 export type Employee = {
   id: string;
   pk: string;
+  companyName: string | undefined;
   firstName: string;
   middleName: string | undefined;
   lastName: string;
@@ -44,6 +45,11 @@ export type Survey = {
   sExperience: number;
 };
 
+export type SelectCompanyName = {
+  label: string;
+  value: string;
+};
+
 export interface EmployeeInfo {
   id: string;
   pk: string;
@@ -68,6 +74,10 @@ export interface EmployeeGet {
 
 export interface EmployerGet {
   employerPk: string;
+}
+
+export interface EmployerQuery {
+  partialEmployer: string;
 }
 
 export interface MessageGet {

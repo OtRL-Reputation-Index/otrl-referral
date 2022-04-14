@@ -41,6 +41,7 @@ const fetchEmployee = async (
         phoneNum: item.phone_num,
         pk: item.pk,
         numReferrals: item.referrals_num,
+        companyName: item.company_name,
         rui: item.rui,
         email: item.email,
       };
@@ -143,6 +144,7 @@ const updateEmployee = async (
         numReferrals: result.Attributes?.referrals_num,
         rui: result.Attributes?.rui,
         email: result.Attributes?.email,
+        companyName: result.Attributes?.company_name,
       };
     }
   } catch (err) {
@@ -189,6 +191,7 @@ const postEmployee = async (employee: Employee): Promise<boolean> => {
           phone_num: employee.phoneNum,
           rui: employee.rui,
           referrals_num: employee.numReferrals,
+          companyName: employee.companyName,
         },
       };
 
