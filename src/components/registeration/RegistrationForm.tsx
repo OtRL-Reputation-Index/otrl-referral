@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 import { RegistrationInfo } from "@/components/registeration/RegistrationInfo";
 import { SubHeader } from "@/layout/SubHeader";
 import { SelectCompanyName } from "@/lib/types";
