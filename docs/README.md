@@ -9,8 +9,8 @@
 #
 - aws dynamodb create-table --cli-input-json file://filename.json
 
-## Create multiple items
-- aws dynamodb batch-write-item --request-items file://fileitems.json
+## Create an item
+- aws dynamodb put-item  --cli-input-json file://filename.json
 
 # reference material:
 - https://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html 
